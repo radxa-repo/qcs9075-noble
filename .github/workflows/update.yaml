@@ -22,7 +22,7 @@ jobs:
     - name: "Checkout rsdk"
       uses: "actions/checkout@v6"
       with:
-        ref: "9902e23d1f8d757c86fab0cc76fd1738e2eca7ff"
+        ref: "b4913deb6038160a0a86ab5cccb581310ae71d86"
         repository: "RadxaOS-SDK/rsdk"
     - name: "Checkout current repo"
       uses: "actions/checkout@v6"
@@ -40,6 +40,9 @@ jobs:
             mv pkgs.lock.new pkgs.lock
             git add pkgs.lock
         fi
+        
+        # Clean up wget file in case it failed (for example no lock in test repo)
+        rm -f pkgs.lock.new
         
         ../src/bin/rsdk infra-pkg-snapshot
         git add pkgs.json
